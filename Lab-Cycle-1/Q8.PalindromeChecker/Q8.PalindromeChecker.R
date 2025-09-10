@@ -2,7 +2,6 @@ palindrome_check<- function(word){
   string<-tolower(gsub("[^a-zA-z]","",word))
   string_letters<-strsplit(string,NULL)[[1]]
   string_length<-length(string_letters)
-  print(string_letters)
   i<-1
   j<-string_length
 
