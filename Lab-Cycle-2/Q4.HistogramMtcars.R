@@ -1,34 +1,32 @@
-# Load mtcars dataset
-data(mtcars)
+# Extract mpg values
+mpg <- mtcars$mpg
 
-# Calculate mean and standard deviation
-mean_mpg <- mean(mtcars$mpg)
-sd_mpg <- sd(mtcars$mpg)
+# Compute statistics
+mean_mpg <- mean(mpg)
+sd_mpg <- sd(mpg)
 
-# Create histogram
-hist(
-  mtcars$mpg,
-  breaks = 10,                              # Number of bins
-  col = colorRampPalette(c("lightblue", "blue"))(10),  # Different shades of blue
-  main = "Histogram of Miles per Gallon (mpg)",
+# Create histogram data (without plotting yet)
+h <- hist(
+  mpg,
+  breaks = 8,                         # Number of bins (you can adjust)
+  col = colorRampPalette(c("lightblue", "darkblue"))(8), # Shades of blue
+  main = "Distribution of Miles per Gallon (mpg)",
   xlab = "Miles per Gallon",
   ylab = "Frequency",
   border = "white"
 )
 
-# Add mean and standard deviation lines
+# Add vertical line for mean
 abline(v = mean_mpg, col = "red", lwd = 2)
-abline(v = mean_mpg + sd_mpg, col = "darkgreen", lty = 2)
-abline(v = mean_mpg - sd_mpg, col = "darkgreen", lty = 2)
 
-# Add text displaying mean and SD
+# Add text with mean and SD
 text(
-  x = mean_mpg, y = 3, 
-  labels = paste("Mean =", round(mean_mpg, 2)),
-  col = "red", pos = 4
-)
-text(
-  x = mean_mpg + sd_mpg, y = 2,
-  labels = paste("SD =", round(sd_mpg, 2)),
-  col = "darkgreen", pos = 4
+  x = mean_mpg + 2,
+  y = max(h$counts) - 1,
+  labels = paste0(
+    "Mean = ", round(mean_mpg, 2),
+    "\nSD = ", round(sd_mpg, 2)
+  ),
+  col = "black",
+  adj = 0
 )
