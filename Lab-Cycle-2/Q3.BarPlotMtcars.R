@@ -1,20 +1,19 @@
+# Convert variables to factors
+x <- as.factor(mtcars$cyl)   # Cylinders
+y <- as.factor(mtcars$am)    # Transmission type (0 = Auto, 1 = Manual)
 
-data(mtcars)
+# Create a frequency table
+tbl <- table(x, y)
 
-cyl_trans_table <- table(mtcars$cyl, mtcars$am)
 
+# Create the bar plot
 barplot(
-  cyl_trans_table,
-  beside = TRUE,
-  col = c("skyblue", "orange", "lightgreen"), 
-  names.arg = c("Automatic", "Manual"),       # am = 0 -> Auto, 1 -> Manual
-  xlab = "Transmission Type (0 = Auto, 1 = Manual)",
-  ylab = "Number of Cars",
-  main = "Number of Cylinders vs Transmission Type in mtcars Dataset"
-)
-legend(
-  "topright",
-  legend = rownames(cyl_trans_table),
-  fill = c("skyblue", "orange", "lightgreen"),
-  title = "Cylinders"
+  t(tbl),
+  beside = TRUE,                             # Side-by-side bars for each transmission
+  col = c("red", "green"),            # Colors for transmission types
+  main = "Number of Cars by Cylinders and Transmission Type",
+  xlab = "Number of Cylinders",
+  ylab = "Count of Cars",
+  legend.text = c("Automatic", "Manual"),    # Legend labels
+  args.legend = list(title = "Transmission", x = "topright")
 )
