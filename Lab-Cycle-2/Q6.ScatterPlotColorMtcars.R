@@ -1,16 +1,25 @@
+# Load data
 data(mtcars)
 
-carbs <- as.factor(mtcars$carb)
-plot(mtcars$disp, mtcars$wt, col = carbs,
-     main = 'Scatterplot of Displacement vs Weight',
-     xlab = 'Displacement', ylab = 'Weight', pch = 21
-)
+# Define colors and sizes based on number of carburetors
+carb_colors <- rainbow(length(unique(mtcars$carb)))[as.factor(mtcars$carb)]
+carb_sizes <- mtcars$carb * 1.5  # Scale sizes
 
-legend(x = 'topleft', legend = levels(carbs), horiz = TRUE,
-       col = 1:length(levels(carbs)) , pch = 15, title = 'Number of Carburetors')
+# Create scatter plot
+plot(mtcars$wt, mtcars$disp,
+     main = "Scatter Plot of Displacement vs Weight",
+     xlab = "Weight (1000 lbs)",
+     ylab = "Displacement (cu.in.)",
+     col = carb_colors,
+     pch = 19,
+     cex = carb_sizes / 5)  # adjust size scaling
 
-loess_fit <- loess(wt ~ disp, data = mtcars)
+# Add smooth line (trend)
+lines(lowess(mtcars$wt, mtcars$disp), col = "black", lwd = 2)
 
-disp_sorted <- sort(mtcars$disp)
-lines(disp_sorted, predict(loess_fit, newdata = data.frame(disp = disp_sorted)),
-      lwd = 2, col = 'darkgreen')
+# Add legend
+legend("topleft",
+       legend = paste("Carburetors =", sort(unique(mtcars$carb))),
+       col = rainbow(length(unique(mtcars$carb))),
+       pch = 19,
+       title = "Number of Carburetors")
