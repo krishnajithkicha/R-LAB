@@ -1,4 +1,9 @@
-#install.packages(c("forecast", "ggplot2", "dplyr"))
+install.packages("Rcpp")
+install.packages("RcppArmadillo", dependencies = TRUE)
+install.packages("forecast", dependencies = TRUE)
+install.packages("ggplot2")
+install.packages("dplyr")
+
 library(forecast)
 library(ggplot2)
 library(dplyr)
